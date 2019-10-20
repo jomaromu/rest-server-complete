@@ -1,0 +1,5 @@
+
+mauricio
+Wxde2fZeMDj5Rvua
+
+mongodb+srv://mauricio:Wxde2fZeMDj5Rvua@cluster0-lijzp.mongodb.net/cafe
