@@ -3,14 +3,15 @@ const app = express();
 const bcrypt = require('bcrypt');
 const _ = require('underscore'); // filtrar actualizaciones de datos
 const Usuario = require('../models/usuario');
+const { verificaToken, verificaRole } = require('../middleware/autenticacion');
 
 // get
-app.get('/usuario', (req, res) => {
+app.get('/usuario', verificaToken, (req, res) => {
 
     // res.json('hello world local');
 
     let desde = req.query.desde || 0;
-    let limite = req.query.limite || 5;
+    let limite = req.query.limite || 15;
 
     desde = Number(desde);
     limite = parseInt(limite);
@@ -41,7 +42,7 @@ app.get('/usuario', (req, res) => {
 });
 
 // post
-app.post('/usuario', (req, res) => {
+app.post('/usuario', [verificaToken, verificaRole], (req, res) => {
 
     let body = req.body;
 
@@ -72,7 +73,7 @@ app.post('/usuario', (req, res) => {
 });
 
 // put
-app.put('/usuario/:id', (req, res) => {
+app.put('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
 
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']); // elementos que se pueden actualizar
@@ -94,7 +95,7 @@ app.put('/usuario/:id', (req, res) => {
 
 });
 
-app.delete('/usuario/:id', (req, res) => {
+app.delete('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
 
     let id = req.params.id;
     let body = _.pick(req.body, ['estado']); // elementos que se pueden actualizar

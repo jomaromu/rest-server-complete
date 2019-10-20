@@ -3,9 +3,10 @@ const app = express();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuario');
+const { verificaToken } = require('../middleware/autenticacion');
 
 
-app.post('/login', (req, res) => {
+app.post('/login', verificaToken, (req, res) => {
 
     // obtener el body
     let body = req.body;
@@ -41,7 +42,7 @@ app.post('/login', (req, res) => {
         token = jwt.sign({
 
             usuario: UsuarioDB
-        }, 'este-es-el-seed-desarrollo', { expiresIn: 60 * 60 * 24 * 30 });
+        }, process.env.SEED, { expiresIn: 60 * 60 * 24 * 30 });
 
         // regreso el usuario
         res.json({
