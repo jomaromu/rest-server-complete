@@ -20,6 +20,7 @@ let verificaToken = (req, res, next) => {
 
         // si todo es correcto
         req.usuario = decoded.usuario; // este es el usuario que viene en el token decodificado
+        // console.log(req.usuario);
         next();
     });
 };
