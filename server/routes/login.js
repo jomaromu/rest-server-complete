@@ -44,6 +44,8 @@ app.post('/login', verificaToken, (req, res) => {
             usuario: UsuarioDB
         }, process.env.SEED, { expiresIn: 60 * 60 * 24 * 30 });
 
+        // console.log(process.env.SEED);
+
         // regreso el usuario
         res.json({
             Ok: true,
