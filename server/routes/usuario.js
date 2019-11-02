@@ -51,7 +51,7 @@ app.post('/usuario', [verificaToken, verificaRole], (req, res) => {
         nombre: body.nombre,
         email: body.email,
         password: bcrypt.hashSync(body.password, 10),
-        // img: body.img,
+        img: body.img,
         role: body.role
     });
 
